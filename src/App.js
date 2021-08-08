@@ -46,8 +46,8 @@ function App() {
     const finalDate = moment().add(finalDay, 'days');
     setQuote(
       <div className="App-quote-box">
-        <table>
-          <thead>
+        <table className="Table-1">
+          <tbody>
             <tr>
               <th>
                 <div className="Table-channel">
@@ -55,20 +55,26 @@ function App() {
                   <span>{text}</span>
                 </div>
               </th>
-              <th className="Table-countries-cell">
-                <div className="Table-countries">
-                  <span>{initInfo.startingCountry + ' -> ' + initInfo.destinationCountry}</span>
-                </div>
-              </th>
             </tr>
-          </thead>
-          <tbody>
             <tr>
               <td>
                 <p className="Table-number-days">{initDay} - {finalDay} days</p>
                 <p className="Table-estimated">Estimated delivery</p>
                 <p className="Table-dates">{initDate.format("MMM Do")} - {finalDate.format("MMM Do")}</p>
               </td>
+            </tr>
+          </tbody>
+        </table>
+        <table className="Table-2">
+          <tbody>
+            <tr className="Cell-countries">
+              <th className="Table-countries-cell">
+                <div className="Table-countries">
+                  <span>{initInfo.startingCountry + ' -> ' + initInfo.destinationCountry}</span>
+                </div>
+              </th>
+            </tr>
+            <tr>
               <td>
                 <div className="Table-price">
                   <span>US$ {initInfo.quotePrice}</span>
@@ -88,28 +94,30 @@ function App() {
         <span className="App-title">Generate Quote</span>
       </header>
       <div className="App-container">
-        <div className="App-form">
-          <div className="App-input-group">
-            <label>Starting country</label>
-            <input type="text" placeholder="Country name" pattern="[a-zA-ZÀ-ÿ ]+" value={initInfo.startingCountry} onChange={handleStartingCountryInput} />
-          </div>
-          <div className="App-input-group">
-            <label>Destination country</label>
-            <input type="text" placeholder="Country name" pattern="[a-zA-ZÀ-ÿ ]+" value={initInfo.destinationCountry} onChange={handleDestinationCountryInput} />
-          </div>
-          <div className="App-input-group">
-            <label>Quote price</label>
-            <input type="number" placeholder="Price" pattern="^0\d{9}$" value={initInfo.quotePrice} onChange={handleQuotePriceInput} />
-          </div>
-          <div className="App-input-group">
-            <label>Shipping channel</label>
-            <select onChange={handleShippingChannelSelect}>
-              <option value="air">Air</option>
-              <option value="ocean">Ocean</option>
-            </select>
-          </div>
-          <div className="App-input-group">
-            <button className="App-button" onClick={renderQuote} disabled={initInfo.startingCountry.match(/^$/) || initInfo.destinationCountry.match(/^$/) || initInfo.quotePrice.match(/^$/)} >Create quote</button>
+        <div className="App-form-container">
+          <div className="App-form">
+            <div className="App-input-group">
+              <label>Starting country</label>
+              <input type="text" placeholder="Country name" pattern="[a-zA-ZÀ-ÿ ]+" value={initInfo.startingCountry} onChange={handleStartingCountryInput} />
+            </div>
+            <div className="App-input-group">
+              <label>Destination country</label>
+              <input type="text" placeholder="Country name" pattern="[a-zA-ZÀ-ÿ ]+" value={initInfo.destinationCountry} onChange={handleDestinationCountryInput} />
+            </div>
+            <div className="App-input-group">
+              <label>Quote price</label>
+              <input type="number" placeholder="Price" pattern="^0\d{9}$" value={initInfo.quotePrice} onChange={handleQuotePriceInput} />
+            </div>
+            <div className="App-input-group">
+              <label>Shipping channel</label>
+              <select onChange={handleShippingChannelSelect}>
+                <option value="air">Air</option>
+                <option value="ocean">Ocean</option>
+              </select>
+            </div>
+            <div className="App-input-group">
+              <button className="App-button" onClick={renderQuote} disabled={initInfo.startingCountry.match(/^$/) || initInfo.destinationCountry.match(/^$/) || initInfo.quotePrice.match(/^$/)} >Create quote</button>
+            </div>
           </div>
         </div>
         {quote}
