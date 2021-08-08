@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import './App.css';
 import planeIcon from './assets/airplane.png';
 import shipIcon from './assets/ship.png';
+import moment from 'moment';
 
 function App() {
 
@@ -32,9 +33,17 @@ function App() {
     setInitInfo({ ...initInfo, shippingChannel: e.target.value });
   }
 
+  function randomInteger(min, max) {
+    return Math.floor(min + Math.random() * (max - min + 1))
+  }
+
   const renderQuote = () => {
     const icon = initInfo.shippingChannel === 'ocean' ? shipIcon : planeIcon;
     const text = initInfo.shippingChannel === 'ocean' ? 'Traditional ocean freight' : 'Traditional air freight';
+    const initDay = initInfo.shippingChannel === 'ocean' ? randomInteger(25, 30) : randomInteger(3, 7);
+    const finalDay = initDay + (initInfo.shippingChannel === 'ocean' ? randomInteger(5, 10) : randomInteger(2, 4));
+    const initDate = moment().add(initDay, 'days');
+    const finalDate = moment().add(finalDay, 'days');
     setQuote(
       <div className="App-quote-box">
         <table>
@@ -56,13 +65,13 @@ function App() {
           <tbody>
             <tr>
               <td>
-                <p className="Table-number-days">4 - 6 days</p>
+                <p className="Table-number-days">{initDay} - {finalDay} days</p>
                 <p className="Table-estimated">Estimated delivery</p>
-                <p className="Table-dates">Sept 20 - Sept 26</p>
+                <p className="Table-dates">{initDate.format("MMM Do")} - {finalDate.format("MMM Do")}</p>
               </td>
               <td>
                 <div className="Table-price">
-                  <span>US$ 2300</span>
+                  <span>US$ {initInfo.quotePrice}</span>
                 </div>
               </td>
             </tr>
