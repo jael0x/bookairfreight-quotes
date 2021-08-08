@@ -42,6 +42,10 @@
   font-size: 13px;
 }
 
+.App-button:disabled {
+  background-color: #898989;
+}
+
 table {
   font-family: arial, sans-serif;
   border-collapse: collapse;
